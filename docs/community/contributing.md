@@ -127,6 +127,30 @@ public final class MyInterceptor {
 
 ## Code Style
 
+jGuard uses [Spotless](https://github.com/diffplug/spotless) for consistent code formatting.
+
+### Format Your Code
+
+Before committing, run:
+
+```bash
+./gradlew spotlessApply
+```
+
+This automatically formats all Java, Groovy, and Kotlin files to match the project style.
+
+### Check Formatting
+
+To check without modifying files:
+
+```bash
+./gradlew spotlessCheck
+```
+
+CI will fail if code is not properly formatted.
+
+### Style Guidelines
+
 - Follow existing code patterns
 - Use meaningful variable names
 - Add Javadoc for public APIs
@@ -137,9 +161,10 @@ public final class MyInterceptor {
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/my-feature`
 3. Make your changes
-4. Run tests: `./gradlew test`
-5. Commit with a clear message
-6. Push and create a PR
+4. Format code: `./gradlew spotlessApply`
+5. Run tests: `./gradlew test`
+6. Commit with a clear message
+7. Push and create a PR
 
 ## Questions?
 

@@ -197,12 +197,16 @@ const config: Config = {
               href: 'https://github.com/jguard-io/jguard',
             },
             {
-              label: 'Contributing',
-              to: '/docs/community/contributing',
+              label: 'Maven Central',
+              href: 'https://central.sonatype.com/search?q=io.jguard',
             },
             {
-              label: 'Releases',
-              href: 'https://github.com/jguard-io/jguard/releases',
+              label: 'Gradle Plugin Portal',
+              href: 'https://plugins.gradle.org/plugin/io.jguard.policy',
+            },
+            {
+              label: 'Contributing',
+              to: '/docs/community/contributing',
             },
           ],
         },

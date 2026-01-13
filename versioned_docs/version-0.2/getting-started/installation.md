@@ -99,17 +99,15 @@ java -javaagent:jguard-agent-0.2.0.jar=policy.bin \
 
 ## Artifacts
 
-jGuard publishes the following artifacts to Maven Central:
+jGuard publishes the following artifacts:
 
-| Artifact | Description |
-|----------|-------------|
-| `io.jguard:jguard-core` | Public API for applications |
-| `io.jguard:jguard-policy` | Policy model and compilation |
-| `io.jguard:jguard-policy-java` | Java API for programmatic policies |
-| `io.jguard:jguard-agent` | Runtime enforcement agent |
-| `io.jguard:jguard-cli` | Command-line tools |
-
-The Gradle plugin `io.jguard.policy` is available from the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/io.jguard.policy).
+| Artifact | Description | Link |
+|----------|-------------|------|
+| `io.jguard:jguard-core` | Public API for applications | [Maven Central](https://central.sonatype.com/artifact/io.jguard/jguard-core) |
+| `io.jguard:jguard-policy` | Policy model and compilation | [Maven Central](https://central.sonatype.com/artifact/io.jguard/jguard-policy) |
+| `io.jguard:jguard-agent` | Runtime enforcement agent | [Maven Central](https://central.sonatype.com/artifact/io.jguard/jguard-agent) |
+| `io.jguard:jguard-cli` | Command-line tools | [Maven Central](https://central.sonatype.com/artifact/io.jguard/jguard-cli) |
+| `io.jguard.policy` | Gradle plugin | [Gradle Plugin Portal](https://plugins.gradle.org/plugin/io.jguard.policy) |
 
 ## Next Steps
 
