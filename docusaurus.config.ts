@@ -125,6 +125,10 @@ const config: Config = {
               to: '/docs/community/contributing',
             },
             {
+              label: 'Security',
+              to: '/docs/community/security',
+            },
+            {
               label: 'Code of Conduct',
               to: '/docs/community/code-of-conduct',
             },
