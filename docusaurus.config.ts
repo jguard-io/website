@@ -228,7 +228,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} jGuard Contributors. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} jGuard Contributors.`,
     },
     prism: {
       theme: prismThemes.github,
