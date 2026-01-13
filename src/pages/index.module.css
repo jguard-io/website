@@ -3,27 +3,26 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--ifm-color-primary-darkest) 0%, var(--ifm-color-primary-dark) 100%);
-  color: white;
+  background: linear-gradient(90deg, #e1d1fa 0%, #d6f5f8 100%);
 }
 
 .heroTitle {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: white;
+  color: #1a1a2e;
 }
 
 .heroSubtitle {
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.95);
+  color: #2d2d44;
 }
 
 .heroDescription {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: #4a4a5a;
   max-width: 600px;
   margin: 0 auto 1.5rem;
 }
@@ -47,25 +46,25 @@
 }
 
 .buttons .button--primary {
-  background-color: white;
-  color: var(--ifm-color-primary-darkest);
+  background-color: #5850dd;
+  color: white;
   border: none;
 }
 
 .buttons .button--primary:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: var(--ifm-color-primary-darkest);
+  background-color: #4840cc;
+  color: white;
 }
 
 .buttons .button--secondary {
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: #5850dd;
+  border: 2px solid #5850dd;
 }
 
 .buttons .button--secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  background-color: rgba(88, 80, 221, 0.1);
+  color: #5850dd;
 }
 
 @media screen and (max-width: 996px) {

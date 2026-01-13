@@ -71,8 +71,18 @@
 }
 
 /* Announcement bar styling */
-.announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
+div[class*='announcementBar'] {
+  background: linear-gradient(90deg, #5850dd 0%, #00c1d3 100%) !important;
   font-weight: 500;
+}
+
+div[class*='announcementBar'] a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+div[class*='announcementBar'] a:hover {
+  color: #fff;
 }
 
 /* Code block styling */
