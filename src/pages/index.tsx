@@ -1,7 +1,6 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
@@ -10,8 +9,6 @@ import CodeBlock from '@theme/CodeBlock';
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-
   const heroPolicy = `security module com.example.myapp {
     entitle com.example.myapp.http.. to network.outbound;
     entitle com.example.myapp.io..   to fs.read(data, "**");
@@ -21,9 +18,11 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero', styles.heroBanner)}>
       <div className="container">
-        <Heading as="h1" className={styles.heroTitle}>
-          {siteConfig.title}
-        </Heading>
+        <img
+          src="/img/jguard-logo-transparent-background.png"
+          alt="jGuard"
+          className={styles.heroLogo}
+        />
         <p className={styles.heroSubtitle}>
           Capability-Based Security for the JVM
         </p>

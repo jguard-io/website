@@ -6,11 +6,11 @@
   background: linear-gradient(90deg, #e1d1fa 0%, #d6f5f8 100%);
 }
 
-.heroTitle {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #1a1a2e;
+.heroLogo {
+  display: block;
+  max-width: 350px;
+  height: auto;
+  margin: 0 auto 0;
 }
 
 .heroSubtitle {
