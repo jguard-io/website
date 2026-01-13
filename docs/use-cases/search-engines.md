@@ -4,13 +4,13 @@ sidebar_position: 5
 
 # Search Engines
 
-Search engines like Lucene, OpenSearch, and Elasticsearch execute custom scoring scripts that need sandboxing.
+Search engines like Lucenia, OpenSearch, and Elasticsearch execute custom scoring scripts that need sandboxing.
 
 ## The Problem
 
 Search engines allow users to provide custom scoring expressions or scripts:
 
-- Painless scripts in OpenSearch/Elasticsearch
+- Scripts in Lucenia and OpenSearch/Elasticsearch
 - Custom scorers in Lucene
 - User-defined functions for ranking
 

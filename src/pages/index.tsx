@@ -139,8 +139,8 @@ function UseCasesSection() {
       link: '/docs/use-cases/ml-isolation',
     },
     {
-      title: 'Multi-Tenant JVMs',
-      description: 'Isolate tenants with module-based security boundaries.',
+      title: 'Multi-Module Applications',
+      description: 'Isolate modules with independent security policies.',
       link: '/docs/use-cases/multi-tenant',
     },
     {
