@@ -1,0 +1,16 @@
+jguard:
+  name: jGuard Team
+  title: jGuard Contributors
+  url: https://github.com/jguard-io/jguard
+  image_url: /img/jguard-icon.png
+
+nknize:
+  name: Nicholas Knize
+  title: CEO & Founder, Lucenia
+  url: https://lucenia.io
+  image_url: https://github.com/nknize.png
+  page: true
+  socials:
+    linkedin: nknize
+    github: nknize
+    website: https://knize.co

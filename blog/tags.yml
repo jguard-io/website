@@ -1,0 +1,19 @@
+release:
+  label: Release
+  permalink: /release
+  description: jGuard release announcements
+
+announcement:
+  label: Announcement
+  permalink: /announcement
+  description: Project announcements
+
+security:
+  label: Security
+  permalink: /security
+  description: Security-related posts
+
+tutorial:
+  label: Tutorial
+  permalink: /tutorial
+  description: How-to guides and tutorials
