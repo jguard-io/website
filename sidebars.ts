@@ -32,6 +32,7 @@ const sidebars: SidebarsConfig = {
       label: 'Community',
       items: [
         'community/contributing',
+        'community/security',
         'community/code-of-conduct',
         'community/governance',
       ],
