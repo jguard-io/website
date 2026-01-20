@@ -32,6 +32,10 @@ const config: Config = {
     [
       'classic',
       {
+        gtag: {
+          trackingID: 'G-465L2FCKEB',
+          anonymizeIP: true, // Recommended for GDPR compliance
+        },
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/jguard-io/jguard.io/tree/main/',
