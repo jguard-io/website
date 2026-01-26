@@ -14,6 +14,69 @@ const config: Config = {
   url: 'https://jguard.io',
   baseUrl: '/',
 
+  // SEO metadata
+  headTags: [
+    // Open Graph
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:type',
+        content: 'website',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:site_name',
+        content: 'jGuard',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:locale',
+        content: 'en_US',
+      },
+    },
+    // Twitter Card
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:site',
+        content: '@jguard_io',
+      },
+    },
+    // Additional SEO
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'keywords',
+        content: 'jGuard, Java security, JVM security, capability-based security, JPMS, Java modules, SecurityManager replacement, JDK 21, JDK 24, sandbox, least privilege, JEP 411, JEP 486, Security Manager deprecated, Security Manager removed',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'author',
+        content: 'jGuard Contributors',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'canonical',
+        href: 'https://jguard.io',
+      },
+    },
+  ],
+
   // GitHub pages deployment config
   organizationName: 'jguard-io',
   projectName: 'jguard-io.github.io',
@@ -41,11 +104,14 @@ const config: Config = {
           editUrl: 'https://github.com/jguard-io/jguard.io/tree/main/',
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
-          lastVersion: '0.2',
+          lastVersion: '0.3',
           versions: {
             current: {
               label: 'Next 🚧',
               banner: 'unreleased',
+            },
+            '0.3': {
+              label: '0.3.0',
             },
             '0.2': {
               label: '0.2.0',
@@ -85,7 +151,23 @@ const config: Config = {
   ],
 
   themeConfig: {
+    // Default meta image for social sharing
     image: 'img/jguard-social-card.png',
+    // SEO metadata defaults
+    metadata: [
+      {
+        name: 'description',
+        content: 'jGuard is a capability-based security framework for JDK 21+ that enables JVM applications to execute untrusted code with explicit, least-privilege access controls. The modern replacement for the deprecated Java SecurityManager.',
+      },
+      {
+        property: 'og:description',
+        content: 'Capability-based security for the JVM. Execute untrusted code safely with explicit, least-privilege access controls.',
+      },
+      {
+        name: 'twitter:description',
+        content: 'Capability-based security for the JVM. Execute untrusted code safely with explicit, least-privilege access controls.',
+      },
+    ],
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
@@ -93,9 +175,9 @@ const config: Config = {
     },
     // Announcement bar for new releases
     announcementBar: {
-      id: 'v0.2.0-release',
+      id: 'v0.3.0-release',
       content:
-        'jGuard v0.2.0 is now available! <a href="/blog/jguard-v0.2.0-release">Read the release notes</a>',
+        'jGuard v0.3.0 is now available! <a href="/blog/jguard-v0.3.0-release">Read the release notes</a>',
       backgroundColor: '#25c2a0',
       textColor: '#fff',
       isCloseable: true,
