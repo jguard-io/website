@@ -53,7 +53,7 @@ Yes! jGuard 0.3.0 is production ready with:
 
 ### What capabilities are supported?
 
-jGuard supports 12 capabilities:
+jGuard supports 14 capabilities:
 
 - `fs.read`, `fs.write`, `fs.hardlink` - Filesystem access
 - `network.outbound`, `network.listen` - Network access
@@ -63,6 +63,7 @@ jGuard supports 12 capabilities:
 - `system.property.read`, `system.property.write` - System properties
 - `process.exec` - Process execution
 - `crypto.provider` - JCE crypto provider modification
+- `runtime.exit`, `runtime.shutdown_hook` - JVM lifecycle control
 
 ### Can I add custom capabilities?
 

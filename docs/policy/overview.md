@@ -77,7 +77,7 @@ security module com.example.webapp {
 
 ## Supported Capabilities
 
-jGuard v0.3.0 supports 12 capabilities across 8 categories.
+jGuard v0.3.0 supports 14 capabilities across 9 categories.
 
 ### Filesystem
 
@@ -298,6 +298,35 @@ This capability guards installation and removal of JCE security providers, preve
 **Instrumented APIs:**
 - `java.security.Security`: addProvider(), insertProviderAt(), removeProvider(), setProperty()
 
+### Runtime Lifecycle
+
+#### runtime.exit
+
+Terminate the JVM. Prevents rogue libraries from calling `System.exit()` and killing your application.
+
+```text
+entitle com.example.main to runtime.exit;
+```
+
+:::danger Server Uptime
+Without this restriction, any library (like embedded databases or ML frameworks) could terminate your server, destroying uptime SLAs.
+:::
+
+**Instrumented APIs:**
+- `java.lang.System.exit(int)`
+- `java.lang.Runtime`: exit(int), halt(int)
+
+#### runtime.shutdown_hook
+
+Register JVM shutdown hooks. Prevents libraries from installing hooks that could interfere with graceful shutdown.
+
+```text
+entitle com.example.lifecycle.. to runtime.shutdown_hook;
+```
+
+**Instrumented APIs:**
+- `java.lang.Runtime`: addShutdownHook(Thread), removeShutdownHook(Thread)
+
 ## Capability Summary Table
 
 | Capability | Arguments | Example |
@@ -314,6 +343,8 @@ This capability guards installation and removal of JCE security providers, preve
 | `system.property.write` | pattern? | `system.property.write("app.**")` |
 | `process.exec` | pattern? | `process.exec("/usr/bin/*")` |
 | `crypto.provider` | none | `crypto.provider` |
+| `runtime.exit` | none | `runtime.exit` |
+| `runtime.shutdown_hook` | none | `runtime.shutdown_hook` |
 
 ## Enforcement Modes
 

@@ -10,7 +10,7 @@ This page outlines the planned features and improvements for jGuard.
 
 The 0.3.0 release focuses on expanded capabilities and native library support:
 
-- ✅ New capabilities: `process.exec`, `fs.hardlink`, `crypto.provider`
+- ✅ New capabilities: `process.exec`, `fs.hardlink`, `crypto.provider`, `runtime.exit`, `runtime.shutdown_hook`
 - ✅ Trusted module mechanism for native libraries (PyTorch, etc.)
 - ✅ Contextual keywords for flexible package naming
 - ✅ Bootstrap JAR caching with content-hash invalidation
@@ -32,7 +32,13 @@ The 0.2.0 release focused on production readiness:
 
 ### 0.4.0 (Planned)
 
-**Focus**: Enhanced observability and ecosystem integration
+**Focus**: Runtime capabilities and observability
+
+- **New Capabilities**
+  - `jmx.monitor` — JMX/MXBean access for monitoring
+  - `runtime.stack_trace` — Stack trace access for diagnostics
+  - `network.socket_options` — Extended TCP socket options
+  - `fs.symlink` — Symbolic link creation
 
 - **Metrics and Monitoring**
   - Prometheus/Micrometer integration

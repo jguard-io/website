@@ -255,6 +255,8 @@ Each capability has a fixed signature:
 | `system.property.write` | `(pattern?)` | Write system properties |
 | `process.exec` | `(pattern?)` | Execute external processes |
 | `crypto.provider` | (no arguments) | Modify JCE providers |
+| `runtime.exit` | (no arguments) | Terminate the JVM |
+| `runtime.shutdown_hook` | (no arguments) | Register shutdown hooks |
 
 ### Argument Details
 
@@ -346,6 +348,31 @@ No arguments. Guards all JCE provider modification operations.
 ```text
 entitle com.example.security.. to crypto.provider;
 ```
+
+#### runtime.exit
+
+No arguments. Guards JVM termination operations.
+
+```text
+entitle com.example.main to runtime.exit;
+```
+
+**Guarded operations:**
+- `System.exit(int)`
+- `Runtime.exit(int)`
+- `Runtime.halt(int)`
+
+#### runtime.shutdown_hook
+
+No arguments. Guards shutdown hook registration and removal.
+
+```text
+entitle com.example.lifecycle.. to runtime.shutdown_hook;
+```
+
+**Guarded operations:**
+- `Runtime.addShutdownHook(Thread)`
+- `Runtime.removeShutdownHook(Thread)`
 
 ### Accumulation of Entitlements
 
