@@ -1,0 +1,8 @@
+# jGuard - Capability-Based Security for the JVM
+# https://jguard.io
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://jguard.io/sitemap.xml
