@@ -94,11 +94,11 @@ security module com.example.mlapp {
 ```groovy
 plugins {
     id "java"
-    id "io.jguard.policy" version "0.2.0"
+    id "io.jguard.policy" version "0.3.0"
 }
 
 dependencies {
-    implementation("io.jguard:jguard-core:0.2.0")
+    implementation("io.jguard:jguard-core:0.3.0")
     implementation("ai.djl:api:0.25.0")
     implementation("ai.djl.pytorch:pytorch-engine:0.25.0")
 }

@@ -65,6 +65,7 @@ jGuard supports fine-grained control over:
 |------------|-------------|
 | `fs.read(root, glob)` | Read files matching glob patterns |
 | `fs.write(root, glob)` | Write files matching glob patterns |
+| `fs.hardlink(root, glob)` | Create hard links |
 | `network.outbound(host?, port?)` | Open outbound connections |
 | `network.listen(port?)` | Bind server sockets |
 | `threads.create` | Create new threads |
@@ -72,6 +73,8 @@ jGuard supports fine-grained control over:
 | `env.read(pattern?)` | Read environment variables |
 | `system.property.read(pattern?)` | Read system properties |
 | `system.property.write(pattern?)` | Write system properties |
+| `process.exec(pattern?)` | Execute external processes |
+| `crypto.provider` | Modify JCE crypto providers |
 
 ## Use Cases
 

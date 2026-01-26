@@ -6,9 +6,20 @@ sidebar_position: 2
 
 This page outlines the planned features and improvements for jGuard.
 
-## Current Release: 0.2.0
+## Current Release: 0.3.0
 
-The 0.2.0 release focuses on production readiness:
+The 0.3.0 release focuses on expanded capabilities and native library support:
+
+- ✅ New capabilities: `process.exec`, `fs.hardlink`, `crypto.provider`
+- ✅ Trusted module mechanism for native libraries (PyTorch, etc.)
+- ✅ Contextual keywords for flexible package naming
+- ✅ Bootstrap JAR caching with content-hash invalidation
+- ✅ Improved Gradle plugin with incremental builds
+- ✅ Global policy support for unnamed modules
+
+## Previous Release: 0.2.0
+
+The 0.2.0 release focused on production readiness:
 
 - ✅ Multi-module support
 - ✅ External policies with grant/deny
@@ -19,7 +30,7 @@ The 0.2.0 release focuses on production readiness:
 
 ## Future Releases
 
-### 0.3.0 (Planned)
+### 0.4.0 (Planned)
 
 **Focus**: Enhanced observability and ecosystem integration
 
@@ -38,7 +49,7 @@ The 0.2.0 release focuses on production readiness:
   - Syntax highlighting and validation
   - Quick fixes for common issues
 
-### 0.4.0 (Planned)
+### 0.5.0 (Planned)
 
 **Focus**: Advanced policy features
 
@@ -53,6 +64,10 @@ The 0.2.0 release focuses on production readiness:
 - **Conditional Capabilities**
   - Time-based restrictions
   - Environment-based grants
+
+- **Path Variables**
+  - Runtime variable substitution (`${env:VAR}`, `${sys:prop}`)
+  - Portable policies across environments
 
 ### 1.0.0 (Future)
 
