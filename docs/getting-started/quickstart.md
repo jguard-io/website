@@ -21,7 +21,7 @@ Edit `build.gradle`:
 plugins {
     id "java"
     id "application"
-    id "io.jguard.policy" version "0.2.0"
+    id "io.jguard.policy" version "0.3.0"
 }
 
 java {
@@ -35,7 +35,7 @@ application {
 }
 
 dependencies {
-    implementation("io.jguard:jguard-core:0.2.0")
+    implementation("io.jguard:jguard-core:0.3.0")
 }
 ```
 

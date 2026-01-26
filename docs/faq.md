@@ -42,7 +42,7 @@ jGuard requires JDK 21 or later. It's tested on:
 
 ### Is jGuard production ready?
 
-Yes! jGuard 0.2.0 is production ready with:
+Yes! jGuard 0.3.0 is production ready with:
 
 - Comprehensive enforcement capabilities
 - Multiple execution modes (STRICT, PERMISSIVE, AUDIT)
@@ -53,14 +53,16 @@ Yes! jGuard 0.2.0 is production ready with:
 
 ### What capabilities are supported?
 
-jGuard supports 9 capabilities:
+jGuard supports 12 capabilities:
 
-- `fs.read`, `fs.write` - Filesystem access
+- `fs.read`, `fs.write`, `fs.hardlink` - Filesystem access
 - `network.outbound`, `network.listen` - Network access
 - `threads.create` - Thread creation
 - `native.load` - Native library loading
 - `env.read` - Environment variables
 - `system.property.read`, `system.property.write` - System properties
+- `process.exec` - Process execution
+- `crypto.provider` - JCE crypto provider modification
 
 ### Can I add custom capabilities?
 

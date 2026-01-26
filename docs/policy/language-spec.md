@@ -83,13 +83,20 @@ SecurityModuleDeclaration:
     'security' 'module' ModuleName '{' PolicyDeclaration* '}'
 ```
 
-The keywords `security` and `module` are reserved and may not be used as identifiers.
-
 ```ebnf
 PolicyDeclaration:
     EntitlementDeclaration
     DenyDeclaration
+    TrustedDeclaration
 ```
+
+### Contextual Keywords
+
+All keywords in jGuard are **contextual**, meaning they are only treated as keywords in specific syntactic positions. This allows package names like `io.example.security.module` to be used without escaping.
+
+**Keywords:** `security`, `module`, `entitle`, `deny`, `to`, `trusted`, `defensive`
+
+These identifiers are parsed as keywords only where the grammar expects them. In all other positions (such as within package names), they are treated as ordinary identifiers.
 
 ### Module Name
 
@@ -120,6 +127,28 @@ DenyDeclaration:
 Each deny declaration removes a capability from a subject. Denials take precedence over grants.
 
 The `defensive` modifier suppresses warnings when denying a capability that was never granted.
+
+### Trusted Declarations
+
+```ebnf
+TrustedDeclaration:
+    'trusted' ';'
+```
+
+A trusted declaration marks the entire module as trusted, bypassing all capability checks. This is intended for native libraries that require unrestricted system access.
+
+:::danger Override-Only
+The `trusted` keyword is only permitted in **external policy override files**. It cannot appear in embedded policies (policies shipped inside JARs). This prevents malicious libraries from granting themselves unrestricted access.
+:::
+
+```text
+// File: policies-src/ai.djl.pytorch.jguard (external override)
+security module ai.djl.pytorch {
+    trusted;
+}
+```
+
+Trusted modules also require the `-Djguard.allow.trusted=true` system property or `allowTrusted = true` in the Gradle plugin configuration.
 
 ### Subject
 
@@ -216,6 +245,7 @@ Each capability has a fixed signature:
 |------------|-----------|-------------|
 | `fs.read` | `(root, glob)` | Read files matching glob under root |
 | `fs.write` | `(root, glob)` | Write files matching glob under root |
+| `fs.hardlink` | `(root, glob)` | Create hard links under root |
 | `network.outbound` | `(hostPattern?, portSpec?)` | Open outbound connections |
 | `network.listen` | `(portSpec?)` | Bind server sockets |
 | `threads.create` | (no arguments) | Create new threads |
@@ -223,6 +253,8 @@ Each capability has a fixed signature:
 | `env.read` | `(pattern?)` | Read environment variables |
 | `system.property.read` | `(pattern?)` | Read system properties |
 | `system.property.write` | `(pattern?)` | Write system properties |
+| `process.exec` | `(pattern?)` | Execute external processes |
+| `crypto.provider` | (no arguments) | Modify JCE providers |
 
 ### Argument Details
 
@@ -290,6 +322,29 @@ entitle module to env.read("HOME");  // Specific variable
 entitle module to system.property.read;
 entitle module to system.property.read("java.home");
 entitle module to system.property.write("app.**");
+```
+
+#### process.exec
+
+- `pattern` — optional command pattern
+
+**Pattern syntax:**
+- No argument — any process execution allowed
+- `/usr/bin/java` — exact command match
+- `/opt/app/bin/*` — wildcard match
+
+```text
+entitle module to process.exec;
+entitle module to process.exec("/usr/bin/java");
+entitle module to process.exec("/opt/app/bin/*");
+```
+
+#### crypto.provider
+
+No arguments. Guards all JCE provider modification operations.
+
+```text
+entitle com.example.security.. to crypto.provider;
 ```
 
 ### Accumulation of Entitlements

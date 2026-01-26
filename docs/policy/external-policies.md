@@ -258,6 +258,65 @@ jguard validate-override --jar vendor.jar --override policies/com.vendor.library
 - Grant capabilities outside the module's code
 - Reference unknown capabilities
 
+## Trusted Modules
+
+For native libraries like PyTorch, TensorFlow, or other code that requires unrestricted system access, jGuard provides a **trusted module** mechanism.
+
+### Declaring a Trusted Module
+
+Trusted modules bypass ALL capability checks. This is only allowed in **external policy override files** — never in embedded policies:
+
+```text
+// File: policies-src/ai.djl.pytorch.jguard
+security module ai.djl.pytorch {
+    trusted;
+}
+```
+
+### Enabling Trusted Modules
+
+Trusted modules require explicit opt-in:
+
+**Gradle:**
+```groovy
+jguardPolicy {
+    allowTrusted = true
+}
+```
+
+**System Property:**
+```bash
+java -Djguard.allow.trusted=true \
+     -Djguard.policy.override=/etc/myapp/policies \
+     -javaagent:jguard-agent.jar \
+     -jar app.jar
+```
+
+### Security Warnings
+
+When trusted modules are loaded, jGuard logs a security warning:
+
+```
+[WARN] [jguard] Module 'ai.djl.pytorch' is marked as TRUSTED - all capability checks bypassed
+```
+
+:::danger Security Warning
+Trusted modules can perform **any operation** without restriction. Only use this for:
+- Native ML libraries (PyTorch, TensorFlow, DJL)
+- System libraries that genuinely need unrestricted access
+- Code you fully trust
+
+Never mark untrusted third-party code as trusted.
+:::
+
+### Why Override-Only?
+
+The `trusted` keyword is restricted to external policy overrides for security:
+
+1. **Prevents malicious libraries** from granting themselves unrestricted access
+2. **Requires deployment-time decision** by administrators, not library authors
+3. **Creates audit trail** — trusted modules are visible in external policy files
+
 ## Best Practices
 
 1. **Start restrictive** - Grant only what's needed, add more if required

@@ -14,7 +14,7 @@ Add the plugin to your `build.gradle`:
 plugins {
     id "java"
     id "application"
-    id "io.jguard.policy" version "0.2.0"
+    id "io.jguard.policy" version "0.3.0"
 }
 ```
 
@@ -24,7 +24,7 @@ Or using the plugins DSL in `build.gradle.kts`:
 plugins {
     java
     application
-    id("io.jguard.policy") version "0.2.0"
+    id("io.jguard.policy") version "0.3.0"
 }
 ```
 
@@ -94,6 +94,23 @@ jguardPolicy {
 }
 ```
 
+### Trusted Modules
+
+```groovy
+jguardPolicy {
+    // Allow trusted modules (for native libraries like PyTorch)
+    allowTrusted = true
+
+    // External policies with trusted declarations
+    externalPoliciesSourceDir = file("policies-src")
+    externalPoliciesOutputDir = file("policies")
+}
+```
+
+:::warning
+Only enable `allowTrusted` when you have modules that genuinely require unrestricted access, such as native ML libraries. Trusted modules bypass all capability checks.
+:::
+
 ## Configuration Reference
 
 | Property | Type | Default | Description |
@@ -106,6 +123,7 @@ jguardPolicy {
 | `logLevel` | String | `info` | Log verbosity |
 | `discoveryMode` | boolean | `true` | Auto-discover policies |
 | `allowUnsignedPolicies` | boolean | `false` | Allow unsigned (dev only) |
+| `allowTrusted` | boolean | `false` | Allow trusted modules |
 | `hotReload` | boolean | `false` | Enable hot reload |
 | `hotReloadInterval` | int | `5` | Reload interval (seconds) |
 | `externalPoliciesSourceDir` | File | — | External policy sources |
@@ -141,6 +159,14 @@ Compiles all `.jguard` files in `externalPoliciesSourceDir`.
 
 **Outputs:**
 - Corresponding `.bin` files in `externalPoliciesOutputDir`
+
+**Incremental Builds**
+
+The task uses content-based change detection. It only recompiles when `.jguard` file contents actually change, not just timestamps.
+
+**Automatic Test Dependency**
+
+When `externalPoliciesSourceDir` is configured, all `Test` tasks automatically depend on `compileExternalPolicies`. This ensures tests always run with up-to-date compiled policies.
 
 ### runWithAgent
 
@@ -241,7 +267,7 @@ Each subproject applies the plugin independently:
 // core/build.gradle
 plugins {
     id "java-library"
-    id "io.jguard.policy" version "0.2.0"
+    id "io.jguard.policy" version "0.3.0"
 }
 ```
 
@@ -251,7 +277,7 @@ Run the app with all policies:
 // app/build.gradle
 plugins {
     id "application"
-    id "io.jguard.policy" version "0.2.0"
+    id "io.jguard.policy" version "0.3.0"
 }
 
 jguardPolicy {

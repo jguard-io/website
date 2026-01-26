@@ -77,7 +77,7 @@ security module com.example.webapp {
 
 ## Supported Capabilities
 
-jGuard v0.2.0 supports 9 capabilities across 6 categories.
+jGuard v0.3.0 supports 12 capabilities across 8 categories.
 
 ### Filesystem
 
@@ -109,6 +109,21 @@ entitle module to fs.write("logs", "*.log");      // Log files only
 **Instrumented APIs:**
 - `java.nio.file.Files`: newOutputStream, newBufferedWriter, write, writeString, copy, move, createFile, createDirectory, createDirectories, delete, deleteIfExists
 - `java.io.FileOutputStream`, `java.io.FileWriter`
+
+#### fs.hardlink(root, glob)
+
+Create hard links to files under a root directory.
+
+```text
+entitle module to fs.hardlink("data/indices", "**");  // Allow hard links in indices
+```
+
+:::warning Security Note
+Hard links can bypass filesystem boundaries by creating alternative paths to files. Only grant this capability when truly necessary.
+:::
+
+**Instrumented APIs:**
+- `java.nio.file.Files.createLink()`
 
 ### Network
 
@@ -248,12 +263,48 @@ entitle module to system.property.write("app.**");    // All descendants
 **Instrumented APIs:**
 - `java.lang.System`: setProperty(), setProperties(), clearProperty()
 
+### Process Execution
+
+#### process.exec(pattern?)
+
+Execute external processes.
+
+```text
+entitle module to process.exec;                    // Any process
+entitle module to process.exec("/usr/bin/java");   // Specific command
+entitle module to process.exec("/opt/app/bin/*");  // Pattern match
+```
+
+:::danger Security Warning
+Process execution is one of the most dangerous capabilities. Only grant to trusted code that absolutely requires it.
+:::
+
+**Instrumented APIs:**
+- `java.lang.Runtime`: exec(String), exec(String[])
+- `java.lang.ProcessBuilder.start()`
+
+### Cryptography
+
+#### crypto.provider
+
+Modify JCE cryptographic providers.
+
+```text
+entitle com.example.security.. to crypto.provider;
+```
+
+This capability guards installation and removal of JCE security providers, preventing rogue crypto implementations.
+
+**Instrumented APIs:**
+- `java.security.Security`: addProvider(), insertProviderAt(), removeProvider(), setProperty()
+
 ## Capability Summary Table
 
 | Capability | Arguments | Example |
 |------------|-----------|---------|
 | `fs.read` | root, glob | `fs.read("config", "**/*.json")` |
 | `fs.write` | root, glob | `fs.write("logs", "*.log")` |
+| `fs.hardlink` | root, glob | `fs.hardlink("data", "**")` |
 | `network.outbound` | host?, port? | `network.outbound("*.example.com", 443)` |
 | `network.listen` | port? | `network.listen("8080-8090")` |
 | `threads.create` | none | `threads.create` |
@@ -261,6 +312,8 @@ entitle module to system.property.write("app.**");    // All descendants
 | `env.read` | pattern? | `env.read("HOME")` |
 | `system.property.read` | pattern? | `system.property.read("java.*")` |
 | `system.property.write` | pattern? | `system.property.write("app.**")` |
+| `process.exec` | pattern? | `process.exec("/usr/bin/*")` |
+| `crypto.provider` | none | `crypto.provider` |
 
 ## Enforcement Modes
 

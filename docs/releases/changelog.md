@@ -8,6 +8,53 @@ All notable changes to jGuard are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - Unreleased
+
+### Added
+
+#### New Capabilities
+- **`process.exec(pattern?)`** — Control process execution (`Runtime.exec()`, `ProcessBuilder.start()`)
+  - Optional pattern argument to restrict allowed commands (e.g., `/usr/bin/java`, `/opt/app/bin/*`)
+  - Prevents shell escapes and command injection attacks
+- **`fs.hardlink(root, glob)`** — Control hard link creation (`Files.createLink()`)
+  - Prevents filesystem boundary bypass attacks via hard links
+  - Requires root directory and glob pattern arguments
+- **`crypto.provider`** — Control JCE crypto provider modifications
+  - Guards `Security.addProvider()`, `Security.insertProviderAt()`, `Security.removeProvider()`, `Security.setProperty()`
+  - Prevents installation of rogue cryptographic providers
+
+#### Trusted Module Mechanism
+- `trusted;` keyword for modules that need unrestricted access (e.g., native ML libraries)
+- Override-only: trusted keyword only allowed in external policy override files, not embedded policies
+- Requires explicit opt-in via `-Djguard.allow.trusted=true` system property
+- Security warning logged when trusted modules are loaded
+- Gradle plugin `allowTrusted` configuration property
+
+#### Gradle Plugin Improvements
+- Automatic incremental builds for `compileExternalPolicies` task with proper file change detection
+- Test tasks automatically depend on `compileExternalPolicies` when external policies are configured
+- Global policies (`_global.jguard`) now apply to unnamed module (classpath code)
+
+#### Agent Improvements
+- Bootstrap JAR caching with content-hash based invalidation
+  - Configurable cache directory via `jguard.bootstrap.cache.dir` system property
+  - Automatic cache invalidation when agent JAR changes (including SNAPSHOT builds)
+- AUDIT mode now respects explicit `jguard.log.allowed=false` setting
+- Contextual keywords: all keywords (`security`, `module`, `entitle`, `deny`, `to`, `trusted`) are now contextual, allowing package names like `io.example.security.module`
+
+### Changed
+
+- Binary policy format version bumped to v3 (supports trusted flag)
+- Bootstrap cache filename includes content hash for reliable cache invalidation
+
+### Fixed
+
+- `jguard.log.allowed=false` now properly suppresses ALLOWED logs in AUDIT mode
+- `compileExternalPolicies` task now correctly detects file content changes
+- Bootstrap JAR cache no longer uses stale cached versions after rebuilds
+
+---
+
 ## [0.2.0] - 2026-01-13
 
 ### Added
