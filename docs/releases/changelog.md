@@ -22,6 +22,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **`crypto.provider`** — Control JCE crypto provider modifications
   - Guards `Security.addProvider()`, `Security.insertProviderAt()`, `Security.removeProvider()`, `Security.setProperty()`
   - Prevents installation of rogue cryptographic providers
+- **`runtime.exit`** — Control JVM termination (`System.exit()`, `Runtime.exit()`, `Runtime.halt()`)
+  - Prevents rogue libraries from killing server applications
+  - Critical for maintaining uptime SLAs
+- **`runtime.shutdown_hook`** — Control shutdown hook registration (`Runtime.addShutdownHook()`, `Runtime.removeShutdownHook()`)
+  - Prevents libraries from interfering with graceful shutdown
 
 #### Trusted Module Mechanism
 - `trusted;` keyword for modules that need unrestricted access (e.g., native ML libraries)

@@ -75,6 +75,8 @@ jGuard supports fine-grained control over:
 | `system.property.write(pattern?)` | Write system properties |
 | `process.exec(pattern?)` | Execute external processes |
 | `crypto.provider` | Modify JCE crypto providers |
+| `runtime.exit` | Terminate the JVM |
+| `runtime.shutdown_hook` | Register shutdown hooks |
 
 ## Use Cases
 
