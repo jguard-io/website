@@ -111,7 +111,7 @@ const config: Config = {
               banner: 'unreleased',
             },
             '0.3': {
-              label: '0.3.0',
+              label: '0.3.1',
             },
             '0.2': {
               label: '0.2.0',
@@ -175,9 +175,9 @@ const config: Config = {
     },
     // Announcement bar for new releases
     announcementBar: {
-      id: 'v0.3.0-release',
+      id: 'v0.3.1-release',
       content:
-        'jGuard v0.3.0 is now available! <a href="/blog/jguard-v0.3.0-release">Read the release notes</a>',
+        'jGuard v0.3.1 is now available with bugfixes! <a href="/blog/jguard-v0.3.0-release">See what\'s new in 0.3</a>',
       backgroundColor: '#25c2a0',
       textColor: '#fff',
       isCloseable: true,
