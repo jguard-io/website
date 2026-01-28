@@ -77,7 +77,7 @@ security module com.example.webapp {
 
 ## Supported Capabilities
 
-jGuard v0.3.0 supports 14 capabilities across 9 categories.
+jGuard v0.3.1 supports 14 capabilities across 9 categories.
 
 ### Filesystem
 
