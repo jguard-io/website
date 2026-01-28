@@ -12,10 +12,10 @@ Download from Maven Central or use the Gradle plugin:
 
 ```bash
 # Download CLI
-curl -O https://repo1.maven.org/maven2/io/jguard/jguard-cli/0.3.0/jguard-cli-0.3.0.jar
+curl -O https://repo1.maven.org/maven2/io/jguard/jguard-cli/0.3.1/jguard-cli-0.3.1.jar
 
 # Create alias
-alias jguard="java -jar jguard-cli-0.3.0.jar"
+alias jguard="java -jar jguard-cli-0.3.1.jar"
 ```
 
 ## jguardc - Policy Compiler

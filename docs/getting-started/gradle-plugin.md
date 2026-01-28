@@ -14,7 +14,7 @@ Add the plugin to your `build.gradle`:
 plugins {
     id "java"
     id "application"
-    id "io.jguard.policy" version "0.3.0"
+    id "io.jguard.policy" version "0.3.1"
 }
 ```
 
@@ -24,7 +24,7 @@ Or using the plugins DSL in `build.gradle.kts`:
 plugins {
     java
     application
-    id("io.jguard.policy") version "0.3.0"
+    id("io.jguard.policy") version "0.3.1"
 }
 ```
 
@@ -267,7 +267,7 @@ Each subproject applies the plugin independently:
 // core/build.gradle
 plugins {
     id "java-library"
-    id "io.jguard.policy" version "0.3.0"
+    id "io.jguard.policy" version "0.3.1"
 }
 ```
 
@@ -277,7 +277,7 @@ Run the app with all policies:
 // app/build.gradle
 plugins {
     id "application"
-    id "io.jguard.policy" version "0.3.0"
+    id "io.jguard.policy" version "0.3.1"
 }
 
 jguardPolicy {

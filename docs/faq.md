@@ -42,7 +42,7 @@ jGuard requires JDK 21 or later. It's tested on:
 
 ### Is jGuard production ready?
 
-Yes! jGuard 0.3.0 is production ready with:
+Yes! jGuard 0.3.1 is production ready with:
 
 - Comprehensive enforcement capabilities
 - Multiple execution modes (STRICT, PERMISSIVE, AUDIT)

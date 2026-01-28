@@ -6,9 +6,9 @@ sidebar_position: 2
 
 This page outlines the planned features and improvements for jGuard.
 
-## Current Release: 0.3.0
+## Current Release: 0.3.1
 
-The 0.3.0 release focuses on expanded capabilities and native library support:
+The 0.3.1 release focuses on expanded capabilities and native library support:
 
 - ✅ New capabilities: `process.exec`, `fs.hardlink`, `crypto.provider`, `runtime.exit`, `runtime.shutdown_hook`
 - ✅ Trusted module mechanism for native libraries (PyTorch, etc.)
