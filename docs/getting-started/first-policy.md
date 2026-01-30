@@ -170,12 +170,84 @@ security module com.vendor.library {
 }
 ```
 
+## Audit Mode Workflow (v0.4+)
+
+The fastest way to write your first policy is to use **audit mode**. It runs your application, logs all denied operations, and generates copy-paste-ready policy at shutdown.
+
+### Step 1: Run in Audit Mode
+
+```bash
+./gradlew runWithAgent -Pjguard.mode=audit
+```
+
+Or directly:
+
+```bash
+java -javaagent:jguard-agent.jar \
+     -Djguard.mode=audit \
+     -Djguard.allowUnsignedPolicies=true \
+     -jar myapp.jar
+```
+
+### Step 2: Exercise Your Application
+
+Run through all the code paths you want to cover - API calls, file operations, etc.
+
+### Step 3: Copy the Suggested Policy
+
+At shutdown, jGuard prints suggested policy:
+
+```
+// ============================================================
+// jGuard Audit Mode - Suggested Policy
+// Based on 5 denied operation(s)
+// ============================================================
+
+// Suggested policy for module 'com.example.app':
+security module com.example.app {
+    entitle com.example.app.. to fs.read("/", "**");
+    entitle com.example.app.. to network.outbound;
+    entitle com.example.app.. to system.property.read("*");
+    entitle com.example.app.. to threads.create;
+}
+```
+
+### Step 4: Refine the Policy
+
+The suggested policy uses wildcards for safety. Tighten them:
+
+```text
+security module com.example.app {
+    // Narrow filesystem access to specific paths
+    entitle com.example.app.config.. to fs.read("/etc/myapp", "**/*.yaml");
+
+    // Narrow network to specific hosts
+    entitle com.example.app.http.. to network.outbound("api.example.com", 443);
+
+    // Keep specific property patterns
+    entitle module to system.property.read("java.**");
+    entitle module to system.property.read("app.**");
+
+    // Worker packages need threads
+    entitle com.example.app.worker.. to threads.create;
+}
+```
+
+### Step 5: Switch to Strict Mode
+
+```bash
+./gradlew runWithAgent -Pjguard.mode=strict
+```
+
+Your application now runs with least-privilege enforcement.
+
 ## Best Practices
 
 1. **Start with `audit` mode** - See what your application actually needs
 2. **Use specific packages** - Don't grant capabilities to `module` unless necessary
 3. **Use the `..` pattern carefully** - It grants to all descendant packages
 4. **Review third-party policies** - Use `jguard inspect` to see embedded policies
+5. **Tighten wildcards** - The suggested policy uses `*` - narrow to specific values
 
 ## Next Steps
 
