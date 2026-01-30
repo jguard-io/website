@@ -73,7 +73,7 @@ The core module handles file access. Other modules delegate file operations to i
 ```groovy
 plugins {
     id 'java-library'
-    id 'io.jguard.policy' version '0.3.1'
+    id 'io.jguard.policy' version '0.4.0'
 }
 
 jguardPolicy {
@@ -136,7 +136,7 @@ The network module handles all outbound connections.
 ```groovy
 plugins {
     id 'java-library'
-    id 'io.jguard.policy' version '0.3.1'
+    id 'io.jguard.policy' version '0.4.0'
 }
 
 jguardPolicy {
@@ -216,7 +216,7 @@ The app module orchestrates core and network, but cannot directly access files o
 ```groovy
 plugins {
     id 'application'
-    id 'io.jguard.policy' version '0.3.1'
+    id 'io.jguard.policy' version '0.4.0'
 }
 
 application {

@@ -6,9 +6,20 @@ sidebar_position: 2
 
 This page outlines the planned features and improvements for jGuard.
 
-## Current Release: 0.3.1
+## Current Release: 0.4.0
 
-The 0.3.1 release focuses on expanded capabilities and native library support:
+The 0.4.0 release focuses on developer experience and third-party library support:
+
+- ✅ **Audit mode improvements**: Accumulates all denials and prints suggested policy at shutdown
+- ✅ **Test-specific policies**: `src/test/jguard/` for test-only permissions
+- ✅ **Embedded external policies**: Ship policies for dependencies in your JAR (`src/main/jguard/`)
+- ✅ **Multi-directory overrides**: Comma-separated paths in `-Djguard.policy.override`
+- ✅ **Gradle clean task**: Properly cleans compiled policy directories
+- ✅ **Policy discovery debug logging**: Enable with `-Djguard.log.level=debug`
+
+## Previous Release: 0.3.x
+
+The 0.3.x releases focused on expanded capabilities and native library support:
 
 - ✅ New capabilities: `process.exec`, `fs.hardlink`, `crypto.provider`, `runtime.exit`, `runtime.shutdown_hook`
 - ✅ Trusted module mechanism for native libraries (PyTorch, etc.)
@@ -30,7 +41,7 @@ The 0.2.0 release focused on production readiness:
 
 ## Future Releases
 
-### 0.4.0 (Planned)
+### 0.5.0 (Planned)
 
 **Focus**: Runtime capabilities and observability
 
@@ -55,7 +66,7 @@ The 0.2.0 release focused on production readiness:
   - Syntax highlighting and validation
   - Quick fixes for common issues
 
-### 0.5.0 (Planned)
+### 0.6.0 (Planned)
 
 **Focus**: Advanced policy features
 

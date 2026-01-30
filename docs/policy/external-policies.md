@@ -8,12 +8,13 @@ External policies allow you to control capabilities for modules you don't own - 
 
 ## Overview
 
-jGuard supports three types of policies:
+jGuard supports four types of policies:
 
 | Policy Type | Location | Purpose |
 |-------------|----------|---------|
 | **Embedded** | Inside JAR (`META-INF/jguard/policy.bin`) | Module author's policy |
-| **External** | External directory (`policies/*.bin`) | Deployment-time overrides |
+| **Embedded External** | Inside JAR (`META-INF/jguard/external/*.bin`) | Policies for dependencies (v0.4+) |
+| **External Override** | External directory (`policies/*.bin`) | Deployment-time overrides |
 | **Global** | External directory (`policies/_global.bin`) | Applies to ALL modules |
 
 ## Grant/Deny Semantics
@@ -105,6 +106,73 @@ Since jGuard is deny-by-default, the library is automatically blocked from:
 - Native code loading
 - Environment variable access
 - File writes
+
+## Embedded External Policies (v0.4+)
+
+Instead of managing external policy override directories, you can **ship policies for your dependencies directly in your JAR**. This is ideal for:
+
+- Runtime dependencies that need specific capabilities (Netty, Reactor, Google API clients)
+- Libraries you control that use third-party code internally
+- Avoiding deployment-time configuration
+
+### How It Works
+
+Place `.jguard` files in `src/main/jguard/` named after the target module:
+
+```
+src/main/jguard/
+├── io.netty.common.jguard
+├── com.google.api.client.jguard
+└── reactor.core.jguard
+```
+
+The Gradle plugin compiles these to `META-INF/jguard/external/*.bin` in your JAR:
+
+```
+your-app.jar
+├── META-INF/
+│   └── jguard/
+│       ├── policy.bin                    # Your module's policy
+│       └── external/
+│           ├── io.netty.common.bin       # Policy for Netty
+│           ├── com.google.api.client.bin # Policy for Google API
+│           └── reactor.core.bin          # Policy for Reactor
+└── com/example/...
+```
+
+### Example: Granting Netty Permissions
+
+```text
+// src/main/jguard/io.netty.common.jguard
+security module io.netty.common {
+    entitle io.netty.common.. to threads.create;
+    entitle io.netty.common.. to native.load;
+    entitle io.netty.common.. to system.property.read("*");
+}
+```
+
+### Gradle Configuration
+
+```groovy
+jguardPolicy {
+    // Source directory for embedded external policies
+    externalPoliciesSourceDir = file("src/main/jguard")
+}
+```
+
+### Security
+
+Embedded external policies follow the same signing requirements as embedded policies:
+- Signed JARs: policies are trusted
+- Unsigned JARs: require `jguard.allowUnsignedPolicies=true`
+
+### When to Use Each Approach
+
+| Scenario | Use |
+|----------|-----|
+| You own the app and its dependencies | **Embedded external** (`src/main/jguard/`) |
+| Ops needs to override at deployment | **External override** (`policies/`) |
+| You're a library author | **Embedded only** (`module-info.jguard`) |
 
 ## Global Policies
 

@@ -21,11 +21,11 @@ Add the jGuard Gradle plugin to your `build.gradle`:
 plugins {
     id "java"
     id "application"
-    id "io.jguard.policy" version "0.3.1"
+    id "io.jguard.policy" version "0.4.0"
 }
 
 dependencies {
-    implementation("io.jguard:jguard-core:0.3.1")
+    implementation("io.jguard:jguard-core:0.4.0")
 }
 ```
 
@@ -75,7 +75,7 @@ Add to your `pom.xml`:
     <dependency>
         <groupId>io.jguard</groupId>
         <artifactId>jguard-core</artifactId>
-        <version>0.3.1</version>
+        <version>0.4.0</version>
     </dependency>
 </dependencies>
 ```
@@ -86,13 +86,13 @@ Download the agent JAR and run manually:
 
 ```bash
 # Download agent
-curl -O https://repo1.maven.org/maven2/io/jguard/jguard-agent/0.3.1/jguard-agent-0.3.1.jar
+curl -O https://repo1.maven.org/maven2/io/jguard/jguard-agent/0.4.0/jguard-agent-0.4.0.jar
 
 # Compile policy
-java -jar jguard-cli-0.3.1.jar compile -o policy.bin module-info.jguard
+java -jar jguard-cli-0.4.0.jar compile -o policy.bin module-info.jguard
 
 # Run with agent
-java -javaagent:jguard-agent-0.3.1.jar=policy.bin \
+java -javaagent:jguard-agent-0.4.0.jar=policy.bin \
      -Djguard.mode=strict \
      -jar your-app.jar
 ```

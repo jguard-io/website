@@ -14,7 +14,7 @@ Add the plugin to your `build.gradle`:
 plugins {
     id "java"
     id "application"
-    id "io.jguard.policy" version "0.3.1"
+    id "io.jguard.policy" version "0.4.0"
 }
 ```
 
@@ -24,7 +24,7 @@ Or using the plugins DSL in `build.gradle.kts`:
 plugins {
     java
     application
-    id("io.jguard.policy") version "0.3.1"
+    id("io.jguard.policy") version "0.4.0"
 }
 ```
 
@@ -66,7 +66,9 @@ jguardPolicy {
 }
 ```
 
-### External Policies
+### External Policies (Override Directory)
+
+For deployment-time policy overrides (grant/deny for third-party libraries):
 
 ```groovy
 jguardPolicy {
@@ -75,6 +77,59 @@ jguardPolicy {
 
     // Output directory for compiled .bin files
     externalPoliciesOutputDir = file("policies")
+}
+```
+
+### Embedded External Policies (v0.4+)
+
+Ship policies for your runtime dependencies (Netty, Reactor, etc.) directly in your JAR:
+
+```groovy
+jguardPolicy {
+    // Source directory for embedded external policies
+    // Default: src/main/jguard
+    externalPoliciesSourceDir = file("src/main/jguard")
+}
+```
+
+Place `.jguard` files named after the target module:
+
+```
+src/main/jguard/
+├── io.netty.common.jguard      # Policy for io.netty.common
+├── com.google.api.client.jguard # Policy for com.google.api.client
+└── reactor.core.jguard          # Policy for reactor.core
+```
+
+These are compiled to `META-INF/jguard/external/*.bin` and automatically discovered by the agent.
+
+### Test Policies (v0.4+)
+
+Test-specific policies extend embedded policies with additional permissions for testing:
+
+```groovy
+jguardPolicy {
+    // Source directory for test policies (default: src/test/jguard)
+    testPoliciesSourceDir = file("src/test/jguard")
+
+    // Output directory for compiled test policies
+    testPoliciesOutputDir = layout.buildDirectory.dir("test-policies")
+}
+```
+
+Example test policy:
+
+```
+src/test/jguard/
+└── com.example.app.jguard
+```
+
+```text
+// src/test/jguard/com.example.app.jguard
+security module com.example.app {
+    // Additional permissions for testing
+    entitle com.example.app.. to fs.write("/tmp", "**");
+    entitle com.example.app.. to threads.create;
 }
 ```
 
@@ -126,8 +181,10 @@ Only enable `allowTrusted` when you have modules that genuinely require unrestri
 | `allowTrusted` | boolean | `false` | Allow trusted modules |
 | `hotReload` | boolean | `false` | Enable hot reload |
 | `hotReloadInterval` | int | `5` | Reload interval (seconds) |
-| `externalPoliciesSourceDir` | File | — | External policy sources |
+| `externalPoliciesSourceDir` | File | `src/main/jguard` | External policy sources |
 | `externalPoliciesOutputDir` | File | — | External policy output |
+| `testPoliciesSourceDir` | File | `src/test/jguard` | Test policy sources |
+| `testPoliciesOutputDir` | File | `build/test-policies` | Test policy output |
 
 ## Tasks
 
@@ -167,6 +224,24 @@ The task uses content-based change detection. It only recompiles when `.jguard` 
 **Automatic Test Dependency**
 
 When `externalPoliciesSourceDir` is configured, all `Test` tasks automatically depend on `compileExternalPolicies`. This ensures tests always run with up-to-date compiled policies.
+
+### compileTestPolicies
+
+Compiles test-specific `.jguard` files in `testPoliciesSourceDir`.
+
+```bash
+./gradlew compileTestPolicies
+```
+
+**Inputs:**
+- All `*.jguard` files in `testPoliciesSourceDir` (default: `src/test/jguard`)
+
+**Outputs:**
+- Corresponding `.bin` files in `testPoliciesOutputDir` (default: `build/test-policies`)
+
+**Automatic Test Integration**
+
+Test policies are automatically passed to the agent during test execution via `-Djguard.policy.override`.
 
 ### runWithAgent
 
@@ -267,7 +342,7 @@ Each subproject applies the plugin independently:
 // core/build.gradle
 plugins {
     id "java-library"
-    id "io.jguard.policy" version "0.3.1"
+    id "io.jguard.policy" version "0.4.0"
 }
 ```
 
@@ -277,7 +352,7 @@ Run the app with all policies:
 // app/build.gradle
 plugins {
     id "application"
-    id "io.jguard.policy" version "0.3.1"
+    id "io.jguard.policy" version "0.4.0"
 }
 
 jguardPolicy {
