@@ -16,6 +16,7 @@ const sidebars: SidebarsConfig = {
         'getting-started/cli-tools',
         'getting-started/gradle-plugin',
         'getting-started/hot-reload',
+        'getting-started/observability',
         'getting-started/multi-module-tutorial',
       ],
     },

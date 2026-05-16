@@ -104,11 +104,14 @@ const config: Config = {
           editUrl: 'https://github.com/jguard-io/jguard.io/tree/main/',
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
-          lastVersion: '0.3',
+          lastVersion: '0.4',
           versions: {
             current: {
               label: 'Next 🚧',
               banner: 'unreleased',
+            },
+            '0.4': {
+              label: '0.4.0',
             },
             '0.3': {
               label: '0.3.1',
@@ -175,9 +178,9 @@ const config: Config = {
     },
     // Announcement bar for new releases
     announcementBar: {
-      id: 'v0.3.1-release',
+      id: 'v0.4.0-release',
       content:
-        'jGuard v0.3.1 is now available with bugfixes! <a href="/blog/jguard-v0.3.0-release">See what\'s new in 0.3</a>',
+        'jGuard v0.4.0 is now available! Audit mode, embedded external policies, and denial observability. <a href="/blog/jguard-v0.4.0-release">Read the release notes</a>',
       backgroundColor: '#25c2a0',
       textColor: '#fff',
       isCloseable: true,
